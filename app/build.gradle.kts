@@ -72,6 +72,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     implementation("androidx.navigation:navigation-compose:2.9.6")
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+
 //    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
 
@@ -86,7 +88,7 @@ dependencies {
     // Lifecycle utilities for Compose
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.10.0")
 
-    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
 
 
 

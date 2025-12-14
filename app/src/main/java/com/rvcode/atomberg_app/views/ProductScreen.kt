@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.rvcode.atomberg_app.composeUtil.ProductItemView
 import com.rvcode.atomberg_app.viewModelFactoroies.ProductViewModelFactory
 import com.rvcode.atomberg_app.viewmodels.ProductViewModel
 
@@ -26,8 +27,10 @@ fun ProductScreen() {
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(items = list){
+            items(items = list){p->
+                ProductItemView(name =p.name, room = p.room ){
 
+                }
             }
 
         }

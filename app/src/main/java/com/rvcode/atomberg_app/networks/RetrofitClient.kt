@@ -11,30 +11,19 @@ object RetrofitClient {
 
     private lateinit var tokenProvider: DataStoreTokenProvider
 
-    fun init(application: Application){
-        val dataStoreManager =
-            DataStoreManager(application.applicationContext)
-
+    fun init(application: Application) {
+        val dataStoreManager = DataStoreManager(application)
         tokenProvider = DataStoreTokenProvider(dataStoreManager)
     }
 
-
+    // 1. Client WITH Interceptor (Authenticated calls)
     private val okHttpClient: OkHttpClient by lazy {
         OkHttpClient.Builder()
-            .addInterceptor(ApiKeyInterceptor(tokenProvider = tokenProvider))
+            .addInterceptor(ApiKeyInterceptor(tokenProvider))
             .build()
     }
 
-
-    private val retrofitWithoutHttp: Retrofit by lazy {
-        Retrofit.Builder()
-            .baseUrl(ApiConstants.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
-
-
-
+    // 2. Retrofit WITH Interceptor
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_URL)
@@ -43,11 +32,19 @@ object RetrofitClient {
             .build()
     }
 
-    val authApi: AtombergAuthApi by lazy {
-        retrofitWithoutHttp.create(AtombergAuthApi::class.java)
+    // 3. Retrofit WITHOUT Interceptor (For Login/Auth calls)
+    private val retrofitNoAuth: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(ApiConstants.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
-    val atombergApi : AtombergApi by lazy {
+    val atombergApi: AtombergApi by lazy {
         retrofit.create(AtombergApi::class.java)
+    }
+
+    val authApi: AtombergAuthApi by lazy {
+        retrofitNoAuth.create(AtombergAuthApi::class.java)
     }
 }
