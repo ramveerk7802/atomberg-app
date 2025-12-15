@@ -5,6 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.rvcode.atomberg_app.views.FanControllerScreen
 import com.rvcode.atomberg_app.views.LoginScreen
 import com.rvcode.atomberg_app.views.ProductScreen
 
@@ -23,7 +24,13 @@ fun NavigationGraph(modifier: Modifier,navHostController: NavHostController) {
         }
 
         composable(route = "product") {
-            ProductScreen()
+            ProductScreen(navHostController)
+        }
+
+        composable(route = "controller/{deviceId}") {navBackStack->
+            val deviceId = navBackStack.arguments?.getString("deviceId")
+            FanControllerScreen(navHostController = navHostController, deviceId = deviceId)
+
         }
     }
 }

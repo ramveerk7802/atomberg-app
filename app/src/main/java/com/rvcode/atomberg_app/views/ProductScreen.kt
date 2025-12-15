@@ -11,13 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.rvcode.atomberg_app.composeUtil.ProductItemView
 import com.rvcode.atomberg_app.viewModelFactoroies.ProductViewModelFactory
 import com.rvcode.atomberg_app.viewmodels.ProductViewModel
 
 
 @Composable
-fun ProductScreen() {
+fun ProductScreen(navHostController: NavHostController) {
     val productViewModel: ProductViewModel = viewModel( factory = ProductViewModelFactory())
 
     val devices = productViewModel.devices.observeAsState().value
@@ -29,7 +30,7 @@ fun ProductScreen() {
         ) {
             items(items = list){p->
                 ProductItemView(name =p.name, room = p.room ){
-
+                    navHostController.navigate(route = "controller/${p.deviceId}")
                 }
             }
 

@@ -39,10 +39,10 @@ fun InputField(label: String, placeHolder: String, text:String,onValueChange:(St
 
 
 @Composable
-fun ProductItemView(name: String,room:String, onClick:(String)->Unit){
+fun ProductItemView(name: String,room:String, onClick:()->Unit){
     ElevatedCard(
         onClick = {
-            onClick
+            onClick()
         },
         modifier = Modifier.fillMaxWidth().padding(5.dp),
     ){
